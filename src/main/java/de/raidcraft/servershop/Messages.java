@@ -15,8 +15,8 @@ public final class Messages {
     private Messages() {}
 
     public static void send(UUID playerId, Component message) {
-        if (ServerShop.isTesting()) return;
-        BukkitAudiences.create(ServerShop.instance())
+        if (ServerShopPlugin.isTesting()) return;
+        BukkitAudiences.create(ServerShopPlugin.instance())
                 .player(playerId)
                 .sendMessage(message);
     }

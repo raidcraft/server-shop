@@ -3,6 +3,7 @@ package de.raidcraft.servershop;
 import co.aikar.commands.PaperCommandManager;
 import de.raidcraft.servershop.commands.AdminCommands;
 import de.raidcraft.servershop.commands.PlayerCommands;
+import de.raidcraft.servershop.entities.*;
 import io.ebean.Database;
 import kr.entree.spigradle.annotations.PluginMain;
 import lombok.AccessLevel;
@@ -18,11 +19,11 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 import java.io.File;
 
 @PluginMain
-public class ServerShop extends JavaPlugin {
+public class ServerShopPlugin extends JavaPlugin {
 
     @Getter
     @Accessors(fluent = true)
-    private static ServerShop instance;
+    private static ServerShopPlugin instance;
 
     private Database database;
     @Getter
@@ -34,11 +35,11 @@ public class ServerShop extends JavaPlugin {
     @Getter
     private static boolean testing = false;
 
-    public ServerShop() {
+    public ServerShopPlugin() {
         instance = this;
     }
 
-    public ServerShop(
+    public ServerShopPlugin(
             JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
         instance = this;
@@ -85,7 +86,11 @@ public class ServerShop extends JavaPlugin {
 
         this.database = new EbeanWrapper(Config.builder(this)
                 .entities(
-                        // TODO: add your database entities here
+                        Offer.class,
+                        ServerShop.class,
+                        ShopPlayer.class,
+                        ShopSign.class,
+                        Transaction.class
                 )
                 .build()).connect();
     }

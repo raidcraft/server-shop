@@ -12,6 +12,7 @@ import java.nio.file.Path;
 @Setter
 public class PluginConfig extends BukkitYamlConfiguration {
 
+    private String signIdentifier = "[SERVER-SHOP]";
     private DatabaseConfig database = new DatabaseConfig();
 
     public PluginConfig(Path path) {

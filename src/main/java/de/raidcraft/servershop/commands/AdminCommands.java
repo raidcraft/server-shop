@@ -1,13 +1,17 @@
 package de.raidcraft.servershop.commands;
 
 import co.aikar.commands.BaseCommand;
-import de.raidcraft.servershop.ServerShop;
+import co.aikar.commands.annotation.CommandAlias;
+import de.raidcraft.servershop.ServerShopPlugin;
 
+@CommandAlias("servershop:admin|rcssa|ssa")
 public class AdminCommands extends BaseCommand {
 
-    private final ServerShop plugin;
+    private final ServerShopPlugin plugin;
 
-    public AdminCommands(ServerShop plugin) {
+    public AdminCommands(ServerShopPlugin plugin) {
         this.plugin = plugin;
     }
+
+
 }
