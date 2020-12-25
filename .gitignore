@@ -9,6 +9,8 @@
 
 .gradle
 build/
+**/*.jar
+lib/
 
 # Server
 working/*
