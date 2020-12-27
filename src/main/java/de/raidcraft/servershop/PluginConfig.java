@@ -13,6 +13,7 @@ import java.nio.file.Path;
 public class PluginConfig extends BukkitYamlConfiguration {
 
     private String signIdentifier = "[SERVER-SHOP]";
+    private String defaultShopName = "Server";
     private DatabaseConfig database = new DatabaseConfig();
 
     public PluginConfig(Path path) {

@@ -2,7 +2,7 @@
 create table rcss_offers (
   id                            varchar(40) not null,
   shop_id                       varchar(40),
-  type                          varchar(255),
+  item                          varchar(255),
   sell_price                    double not null,
   buy_price                     double not null,
   version                       integer not null,
@@ -37,6 +37,7 @@ create table rcss_players (
 create table rcss_shop_signs (
   id                            varchar(40) not null,
   shop_id                       varchar(40),
+  offer_id                      varchar(40),
   x                             integer not null,
   y                             integer not null,
   z                             integer not null,
@@ -46,7 +47,8 @@ create table rcss_shop_signs (
   when_created                  timestamp not null,
   when_modified                 timestamp not null,
   constraint pk_rcss_shop_signs primary key (id),
-  foreign key (shop_id) references rcss_shops (id) on delete restrict on update restrict
+  foreign key (shop_id) references rcss_shops (id) on delete restrict on update restrict,
+  foreign key (offer_id) references rcss_offers (id) on delete restrict on update restrict
 );
 
 create table rcss_transactions (

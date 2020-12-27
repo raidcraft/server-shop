@@ -2,7 +2,7 @@
 create table rcss_offers (
   id                            uuid not null,
   shop_id                       uuid,
-  type                          varchar(255),
+  item                          varchar(255),
   sell_price                    double not null,
   buy_price                     double not null,
   version                       bigint not null,
@@ -36,6 +36,7 @@ create table rcss_players (
 create table rcss_shop_signs (
   id                            uuid not null,
   shop_id                       uuid,
+  offer_id                      uuid,
   x                             integer not null,
   y                             integer not null,
   z                             integer not null,
@@ -66,6 +67,9 @@ alter table rcss_offers add constraint fk_rcss_offers_shop_id foreign key (shop_
 
 create index ix_rcss_shop_signs_shop_id on rcss_shop_signs (shop_id);
 alter table rcss_shop_signs add constraint fk_rcss_shop_signs_shop_id foreign key (shop_id) references rcss_shops (id) on delete restrict on update restrict;
+
+create index ix_rcss_shop_signs_offer_id on rcss_shop_signs (offer_id);
+alter table rcss_shop_signs add constraint fk_rcss_shop_signs_offer_id foreign key (offer_id) references rcss_offers (id) on delete restrict on update restrict;
 
 create index ix_rcss_transactions_player_id on rcss_transactions (player_id);
 alter table rcss_transactions add constraint fk_rcss_transactions_player_id foreign key (player_id) references rcss_players (id) on delete restrict on update restrict;

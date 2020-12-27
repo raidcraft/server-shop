@@ -1,12 +1,14 @@
 package de.raidcraft.servershop.entities;
 
 import de.raidcraft.servershop.util.SignUtil;
+import io.ebean.Finder;
 import io.ebean.Transaction;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.silthus.ebean.BaseEntity;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -25,8 +27,31 @@ import java.util.UUID;
 @Table(name = "rcss_shop_signs")
 public class ShopSign extends BaseEntity {
 
+    public static final Finder<UUID, ShopSign> find = new Finder<>(ShopSign.class);
+
+    /**
+     * Tries to find a shop sign at the given location.
+     * Returns empty if the location is null or no shop sign is found there.
+     *
+     * @param location the location of the shop sign
+     * @return the shop sign or an empty optional
+     */
+    public static Optional<ShopSign> byLocation(Location location) {
+
+        if (location == null) return Optional.empty();
+
+        return find.query()
+                .where().eq("x", location.getBlockX())
+                .and().eq("y", location.getBlockY())
+                .and().eq("z", location.getBlockZ())
+                .and().eq("world_id", location.getWorld().getUID())
+                .findOneOrEmpty();
+    }
+
     @ManyToOne
     private ServerShop shop;
+    @ManyToOne
+    private Offer offer;
     private int x;
     private int y;
     private int z;

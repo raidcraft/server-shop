@@ -4,7 +4,7 @@
         <createTable name="rcss_offers" identityType="external" pkName="pk_rcss_offers">
             <column name="id" type="uuid" primaryKey="true" identity="true"/>
             <column name="shop_id" type="uuid" references="rcss_shops.id" foreignKeyName="fk_rcss_offers_shop_id" foreignKeyIndex="ix_rcss_offers_shop_id"/>
-            <column name="type" type="varchar"/>
+            <column name="item" type="varchar"/>
             <column name="sell_price" type="double" notnull="true"/>
             <column name="buy_price" type="double" notnull="true"/>
             <column name="version" type="bigint" notnull="true"/>
@@ -32,6 +32,7 @@
         <createTable name="rcss_shop_signs" identityType="external" pkName="pk_rcss_shop_signs">
             <column name="id" type="uuid" primaryKey="true" identity="true"/>
             <column name="shop_id" type="uuid" references="rcss_shops.id" foreignKeyName="fk_rcss_shop_signs_shop_id" foreignKeyIndex="ix_rcss_shop_signs_shop_id"/>
+            <column name="offer_id" type="uuid" references="rcss_offers.id" foreignKeyName="fk_rcss_shop_signs_offer_id" foreignKeyIndex="ix_rcss_shop_signs_offer_id"/>
             <column name="x" type="integer" notnull="true"/>
             <column name="y" type="integer" notnull="true"/>
             <column name="z" type="integer" notnull="true"/>

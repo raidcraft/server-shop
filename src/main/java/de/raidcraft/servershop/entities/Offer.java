@@ -4,10 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.silthus.ebean.BaseEntity;
+import org.bukkit.Material;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,9 +19,21 @@ public class Offer extends BaseEntity {
 
     @ManyToOne
     private ServerShop shop;
-    private String type;
+    private String item;
     private double sellPrice = -1;
     private double buyPrice = -1;
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<ShopSign> signs = new ArrayList<>();
+
+    public Offer(ServerShop shop, Material material) {
+        this.shop = shop;
+        this.item = material.getKey().toString();
+    }
+
+    public Material material() {
+
+        return Material.matchMaterial(item);
+    }
 
     public boolean isBuying() {
 
