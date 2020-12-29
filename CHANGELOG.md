@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/raidcraft/server-shop/compare/v1.1.0...v1.2.0) (2020-12-29)
+
+
+### Features
+
+* add api events and tip on how to sell all items ([9ba25de](https://github.com/raidcraft/server-shop/commit/9ba25de448b7785ea4a4aafdc874c1a777fc49c3))
+
 # [1.1.0](https://github.com/raidcraft/server-shop/compare/v1.0.0...v1.1.0) (2020-12-27)
 
 
