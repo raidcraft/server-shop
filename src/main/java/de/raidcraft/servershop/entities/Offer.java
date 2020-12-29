@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.silthus.ebean.BaseEntity;
+import org.apache.commons.lang.LocaleUtils;
 import org.bukkit.Material;
 
 import javax.persistence.*;
@@ -28,6 +29,24 @@ public class Offer extends BaseEntity {
     public Offer(ServerShop shop, Material material) {
         this.shop = shop;
         this.item = material.getKey().toString();
+    }
+
+    public Offer buyPrice(double price) {
+
+        if (buyPrice == price) return this;
+        this.buyPrice = price;
+        signs().forEach(ShopSign::updateLines);
+
+        return this;
+    }
+
+    public Offer sellPrice(double price) {
+
+        if (sellPrice == price) return this;
+        this.sellPrice = price;
+        signs().forEach(ShopSign::updateLines);
+
+        return this;
     }
 
     public Material material() {

@@ -2,7 +2,6 @@ package de.raidcraft.servershop.util;
 
 import de.raidcraft.economy.wrapper.Economy;
 import de.raidcraft.servershop.entities.ShopSign;
-import io.ebeaninternal.server.lib.Str;
 import lombok.NonNull;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -40,7 +39,7 @@ public final class SignUtil {
                 ChatColor.DARK_AQUA + "[" + ChatColor.WHITE + "SERVER-SHOP" + ChatColor.DARK_AQUA + "]",
                 ChatColor.YELLOW + shopSign.shop().name(),
                 shopSign.offer() != null ? ChatColor.AQUA + shopSign.offer().material().getKey().getKey() : "",
-                shopSign.offer() != null ? ChatColor.GREEN + Economy.get().format(shopSign.offer().buyPrice()) : ""
+                shopSign.offer() != null ? ChatColor.GREEN + Economy.get().format(shopSign.offer().sellPrice()) : ""
         };
     }
 
@@ -56,5 +55,6 @@ public final class SignUtil {
         if (block.getType() == Material.AIR) return;
 
         world.dropItemNaturally(block.getLocation(), new ItemStack(block.getType()));
+        block.setType(Material.AIR);
     }
 }

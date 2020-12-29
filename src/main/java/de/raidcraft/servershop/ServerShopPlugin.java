@@ -87,6 +87,7 @@ public class ServerShopPlugin extends JavaPlugin {
     private void setupShopManager() {
 
         this.shopManager = new ShopManager(this);
+        shopManager.load();
     }
 
     private void setupListener() {

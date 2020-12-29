@@ -2,10 +2,7 @@ package de.raidcraft.servershop.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.ConditionFailedException;
-import co.aikar.commands.annotation.CommandAlias;
-import co.aikar.commands.annotation.CommandCompletion;
-import co.aikar.commands.annotation.CommandPermission;
-import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.*;
 import de.raidcraft.economy.wrapper.Economy;
 import de.raidcraft.servershop.ServerShopPlugin;
 import de.raidcraft.servershop.entities.Offer;
@@ -22,6 +19,7 @@ public class AdminCommands extends BaseCommand {
         this.plugin = plugin;
     }
 
+    @Subcommand("create")
     @CommandCompletion("* *")
     @CommandPermission("rcservershop.shop.create")
     public void createShop(String identifier, String name) {
@@ -35,6 +33,7 @@ public class AdminCommands extends BaseCommand {
         getCurrentCommandIssuer().sendMessage(ChatColor.GREEN + "Du hast den Server Shop " + name + " (" + identifier + ") erstellt.");
     }
 
+    @Subcommand("offer")
     @CommandCompletion("@shops sell|buy @materials *")
     @CommandPermission("rcservershop.shop.offer.add")
     public void addOffer(ServerShop shop, @Default("sell") String type, Material item, double amount) {

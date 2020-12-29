@@ -14,6 +14,8 @@ public class PluginConfig extends BukkitYamlConfiguration {
 
     private String signIdentifier = "[SERVER-SHOP]";
     private String defaultShopName = "Server";
+    private long sellTipTask = 1200L;
+    private int tipThreshold = 4;
     private DatabaseConfig database = new DatabaseConfig();
 
     public PluginConfig(Path path) {
