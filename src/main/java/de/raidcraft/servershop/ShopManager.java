@@ -4,6 +4,7 @@ import de.raidcraft.economy.wrapper.Economy;
 import de.raidcraft.servershop.entities.Offer;
 import de.raidcraft.servershop.entities.ServerShop;
 import de.raidcraft.servershop.entities.Transaction;
+import de.raidcraft.servershop.events.SellItemEvent;
 import de.raidcraft.servershop.util.InventoryUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -56,7 +57,7 @@ public final class ShopManager {
         double sellPrice = offer.sellPrice();
         double total = sellPrice * amount;
 
-        SellItemEvent event = new SellItemEvent(material, amount);
+        SellItemEvent event = new SellItemEvent(player, material, amount);
         event.setSellPrice(sellPrice);
         event.setTotal(total);
 
