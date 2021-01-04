@@ -90,7 +90,7 @@ public final class ShopManager {
                 .totalSellPrice(total);
         transaction.save();
 
-        Bukkit.getPluginManager().callEvent(new SoldtemsEvent(material, amount, sellPrice, total));
+        Bukkit.getPluginManager().callEvent(new SoldtemsEvent(player, material, amount, sellPrice, total));
 
         return new Transaction.Result(transaction);
     }
