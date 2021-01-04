@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/raidcraft/server-shop/compare/v1.2.0...v2.0.0) (2021-01-04)
+
+
+### Features
+
+* **api:** add player to SellItemEvent ([5cc65bd](https://github.com/raidcraft/server-shop/commit/5cc65bdc16151e73f65c081753e3e6470abb8c5d))
+
+
+### BREAKING CHANGES
+
+* **api:** relocated SellItemEvent to events sub package
+
 # [1.2.0](https://github.com/raidcraft/server-shop/compare/v1.1.0...v1.2.0) (2020-12-29)
 
 
