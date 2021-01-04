@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/raidcraft/server-shop/compare/v2.0.0...v2.0.1) (2021-01-04)
+
+
+### Bug Fixes
+
+* **api:** add player to SoldItemEvent ([7162e2a](https://github.com/raidcraft/server-shop/commit/7162e2a981d5ae0c6dfc5a63176cc498d662a5e3))
+
 # [2.0.0](https://github.com/raidcraft/server-shop/compare/v1.2.0...v2.0.0) (2021-01-04)
 
 
