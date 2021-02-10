@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/raidcraft/server-shop/compare/v2.0.1...v2.0.2) (2021-02-10)
+
+
+### Bug Fixes
+
+* add correct dependencies ([3fa4fc6](https://github.com/raidcraft/server-shop/commit/3fa4fc6837a9a8545ef5cd82acc91a99c0a0455d))
+
 ## [2.0.1](https://github.com/raidcraft/server-shop/compare/v2.0.0...v2.0.1) (2021-01-04)
 
 
