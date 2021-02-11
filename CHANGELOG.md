@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/raidcraft/server-shop/compare/v2.0.2...v2.0.3) (2021-02-11)
+
+
+### Bug Fixes
+
+* text library not completly shaded ([f5064bc](https://github.com/raidcraft/server-shop/commit/f5064bcd06368bfc8b5c4364df349533ff3d8026))
+
 ## [2.0.2](https://github.com/raidcraft/server-shop/compare/v2.0.1...v2.0.2) (2021-02-10)
 
 
