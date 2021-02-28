@@ -3,6 +3,7 @@ package de.raidcraft.servershop;
 import de.raidcraft.economy.wrapper.Economy;
 import de.raidcraft.servershop.entities.Offer;
 import de.raidcraft.servershop.entities.ServerShop;
+import de.raidcraft.servershop.entities.ShopPlayer;
 import de.raidcraft.servershop.entities.Transaction;
 import de.raidcraft.servershop.events.SellItemEvent;
 import de.raidcraft.servershop.util.InventoryUtil;
@@ -42,9 +43,22 @@ public final class ShopManager {
         Material material = offer.material();
         String name = material.getKey().getKey();
 
+        if (amount < 1) {
+            return new Transaction.Result("Du hast keine " + name + " die du verkaufen kannst.");
+        }
         if (!player.getInventory().containsAtLeast(new ItemStack(material), amount)) {
             return new Transaction.Result("Nicht genügend " + name
                     + " (" + InventoryUtil.countItems(player.getInventory(), material) + "/" + amount + ") im Inventar.");
+        }
+
+        if (offer.hasLimit() && !player.hasPermission(Constants.Permission.BYPASS_LIMIT)) {
+            ShopPlayer shopPlayer = ShopPlayer.getOrCreate(player);
+            int soldItemAmountToday = shopPlayer.soldItemAmountToday(material);
+            if (soldItemAmountToday >= offer.sellLimit()) {
+                return new Transaction.Result("Du hast dein Limit von " + offer.sellLimit() + " Verkäufen für heute erreicht.");
+            } else if (soldItemAmountToday + amount > offer.sellLimit()) {
+                amount = amount - ((soldItemAmountToday + amount) - offer.sellLimit());
+            }
         }
 
         HashMap<Integer, ItemStack> notRemovedItems = player.getInventory().removeItem(new ItemStack(material, amount));

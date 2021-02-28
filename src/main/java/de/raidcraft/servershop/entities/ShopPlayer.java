@@ -1,16 +1,19 @@
 package de.raidcraft.servershop.entities;
 
+import de.raidcraft.servershop.ServerShopPlugin;
 import io.ebean.Finder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.silthus.ebean.BaseEntity;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -51,5 +54,22 @@ public class ShopPlayer extends BaseEntity {
     public ShopPlayer(OfflinePlayer player) {
         this.id(player.getUniqueId());
         this.name(player.getName());
+    }
+
+    public int soldItemAmountToday(Material item) {
+
+        String timezone = ServerShopPlugin.instance().getPluginConfig().getTimezone();
+        ZoneId zone = ZoneId.of(timezone);
+        Instant from = LocalDate.ofInstant(Instant.now(), zone).atStartOfDay(zone).toInstant();
+        Instant to = LocalDate.ofInstant(Instant.now(), zone).atTime(LocalTime.MAX).toInstant(zone.getRules().getOffset(Instant.now()));
+        return soldItemAmount(item, from, to);
+    }
+
+    public int soldItemAmount(Material item, Instant from, Instant to) {
+
+        return Transaction.find(this, from, to)
+                .stream().filter(transaction -> transaction.offer().material().equals(item))
+                .mapToInt(Transaction::amount)
+                .sum();
     }
 }

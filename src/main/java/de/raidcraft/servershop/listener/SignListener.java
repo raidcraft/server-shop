@@ -100,7 +100,7 @@ public class SignListener implements Listener {
                         }
                     }
                 } else {
-                    event.getPlayer().sendMessage(ChatColor.RED + "Du hast nicht genügend " + material + " die du verkaufen kannst.");
+                    event.getPlayer().sendMessage(ChatColor.RED + "Du kannst keine " + material + " verkaufen: " + result.error());
                 }
             }
         }

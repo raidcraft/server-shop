@@ -1,5 +1,6 @@
 package de.raidcraft.servershop.entities;
 
+import io.ebean.annotation.DbDefault;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -22,6 +23,8 @@ public class Offer extends BaseEntity {
     private String item;
     private double sellPrice = -1;
     private double buyPrice = -1;
+    @DbDefault("-1")
+    private int sellLimit = -1;
     @OneToMany(cascade = CascadeType.REMOVE)
     private List<ShopSign> signs = new ArrayList<>();
 
@@ -61,5 +64,10 @@ public class Offer extends BaseEntity {
     public boolean isSelling() {
 
         return sellPrice >= 0;
+    }
+
+    public boolean hasLimit() {
+
+        return sellLimit() > -1;
     }
 }

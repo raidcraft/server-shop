@@ -16,6 +16,7 @@ import lombok.experimental.Accessors;
 import net.silthus.ebean.Config;
 import net.silthus.ebean.EbeanWrapper;
 import org.bukkit.Bukkit;
+import org.bukkit.Keyed;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -69,7 +70,9 @@ public class ServerShopPlugin extends JavaPlugin {
         createDefaultShop();
         setupShopManager();
         setupListener();
-        setupCommands();
+        if (!isTesting()) {
+            setupCommands();
+        }
     }
 
     public void reload() {
@@ -123,6 +126,7 @@ public class ServerShopPlugin extends JavaPlugin {
 
         items.clear();
         items.addAll(Arrays.stream(Material.values())
+                .filter(material -> !material.isLegacy())
                 .map(Material::getKey)
                 .map(NamespacedKey::getKey)
                 .collect(Collectors.toSet())

@@ -2,6 +2,7 @@ package de.raidcraft.servershop.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.ConditionFailedException;
+import co.aikar.commands.InvalidCommandArgument;
 import co.aikar.commands.annotation.*;
 import de.raidcraft.economy.wrapper.Economy;
 import de.raidcraft.servershop.ServerShopPlugin;
@@ -11,6 +12,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 @CommandAlias("servershop:admin|rcssa|ssa")
+@CommandPermission("rcservershop.admin")
 public class AdminCommands extends BaseCommand {
 
     private final ServerShopPlugin plugin;
@@ -20,8 +22,8 @@ public class AdminCommands extends BaseCommand {
     }
 
     @Subcommand("create")
-    @CommandCompletion("* *")
-    @CommandPermission("rcservershop.shop.create")
+    @CommandCompletion("identifier name")
+    @CommandPermission("rcservershop.admin.create.shop")
     public void createShop(String identifier, String name) {
 
         if (ServerShop.byIdentifier(identifier).isPresent()) {
@@ -34,20 +36,64 @@ public class AdminCommands extends BaseCommand {
     }
 
     @Subcommand("offer")
-    @CommandCompletion("@shops sell|buy @materials *")
-    @CommandPermission("rcservershop.shop.offer.add")
-    public void addOffer(ServerShop shop, @Default("sell") String type, Material item, double amount) {
+    @CommandPermission("rcservershop.admin.offer")
+    public class OfferCmd extends BaseCommand {
 
-        Offer offer = new Offer(shop, item);
-        if (type.equalsIgnoreCase("sell")) {
-            offer.sellPrice(amount);
-        } else if (type.equalsIgnoreCase("buy")) {
-            offer.buyPrice(amount);
+        @Subcommand("add")
+        @CommandCompletion("@shops sell|buy @materials price limit")
+        @CommandPermission("rcservershop.admin.offer.add")
+        public void addOffer(ServerShop shop, @Default("sell") String type, Material item, double amount, @Default("-1") int limit) {
+
+            Offer offer = new Offer(shop, item).sellLimit(limit);
+            if (type.equalsIgnoreCase("sell")) {
+                offer.sellPrice(amount);
+            } else if (type.equalsIgnoreCase("buy")) {
+                offer.buyPrice(amount);
+            }
+            shop.offers().add(offer);
+            offer.save();
+
+            getCurrentCommandIssuer().sendMessage(ChatColor.GREEN + "Dem Shop wurde das Angebot für " + item.getKey().toString()
+                    + " für " + type.toUpperCase() + " " + Economy.get().format(amount) + " hinzugefügt.");
         }
-        shop.offers().add(offer);
-        offer.save();
 
-        getCurrentCommandIssuer().sendMessage(ChatColor.GREEN + "Dem Shop wurde das Angebot für " + item.getKey().toString()
-                + " für " + type.toUpperCase() + " " + Economy.get().format(amount) + " hinzugefügt.");
+        @Subcommand("set")
+        @CommandPermission("rcservershop.admin.offer.set")
+        public class SetOffer extends BaseCommand {
+
+            @Subcommand("price")
+            @CommandCompletion("@shops @materials price sell|buy")
+            @CommandPermission("rcservershop.admin.offer.set.price")
+            public void setPrice(ServerShop shop, Material item, @Default("sell") String type, double price) {
+
+                Offer offer = shop.getOffer(item).orElseThrow(
+                        () -> new InvalidCommandArgument("Es gibt kein Angebot für " + item.getKey()
+                                + " in dem Shop " + shop.identifier()));
+                if (type.equalsIgnoreCase("sell")) {
+                    offer.sellPrice(price);
+                } else if (type.equalsIgnoreCase("buy")) {
+                    offer.buyPrice(price);
+                }
+                offer.save();
+
+                getCurrentCommandIssuer().sendMessage(ChatColor.GREEN + "Das Shop Angebot für " + item.getKey().toString()
+                        + " " + type.toUpperCase() + " wurde auf " + Economy.get().format(price) + " gesetzt.");
+            }
+
+            @Subcommand("limit")
+            @CommandCompletion("@shops @materials limit")
+            @CommandPermission("rcservershop.admin.offer.set.limit")
+            public void setLimit(ServerShop shop, Material item, int limit) {
+
+                shop.getOffer(item).orElseThrow(
+                        () -> new InvalidCommandArgument("Es gibt kein Angebot für " + item.getKey()
+                                + " in dem Shop " + shop.identifier()))
+                        .sellLimit(limit)
+                        .save();
+
+                getCurrentCommandIssuer().sendMessage(ChatColor.GREEN + "Das Limit für " + item.getKey().toString()
+                        + " wurde auf " + limit + " gesetzt.");
+            }
+        }
     }
 }

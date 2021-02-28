@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<migration xmlns="http://ebean-orm.github.io/xml/ns/dbmigration">
+    <changeSet type="apply">
+        <addColumn tableName="rcss_offers">
+            <column name="sell_limit" type="integer" defaultValue="-1" notnull="true"/>
+        </addColumn>
+    </changeSet>
+</migration>
