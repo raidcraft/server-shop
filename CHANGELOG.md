@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/raidcraft/server-shop/compare/v2.0.3...v2.1.0) (2021-02-28)
+
+
+### Features
+
+* add limits to server-shop offers ([d5fdd14](https://github.com/raidcraft/server-shop/commit/d5fdd14dbe3488932e093404b24f098edda3b5df))
+
 ## [2.0.3](https://github.com/raidcraft/server-shop/compare/v2.0.2...v2.0.3) (2021-02-11)
 
 
