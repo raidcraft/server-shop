@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.silthus.ebean.BaseEntity;
-import org.apache.commons.lang.LocaleUtils;
 import org.bukkit.Material;
 
 import javax.persistence.*;

@@ -2,7 +2,6 @@ package de.raidcraft.servershop;
 
 import be.seeseemelk.mockbukkit.MockBukkit;
 import be.seeseemelk.mockbukkit.ServerMock;
-import de.raidcraft.servershop.entities.ServerShop;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.*;
 

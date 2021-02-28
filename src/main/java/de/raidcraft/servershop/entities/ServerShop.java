@@ -11,7 +11,6 @@ import lombok.experimental.Accessors;
 import net.silthus.ebean.BaseEntity;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.checkerframework.checker.nullness.Opt;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
